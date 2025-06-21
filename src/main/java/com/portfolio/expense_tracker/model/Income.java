@@ -1,6 +1,7 @@
 package com.portfolio.expense_tracker.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

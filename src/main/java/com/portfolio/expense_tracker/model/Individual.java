@@ -1,6 +1,7 @@
 package com.portfolio.expense_tracker.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Individual {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
