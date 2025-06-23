@@ -24,12 +24,13 @@ public class Credential {
     @Column(columnDefinition = "VARCHAR(40)", unique = true, nullable = false)
     private String email;
 
-    @Column(columnDefinition = "VARCHAR(40)", unique = true, nullable = false)
-    @NotBlank(message = "Password is required")
-    @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")
-    @Pattern(
-            regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-            message = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-    )
+    @Column(columnDefinition = "VARCHAR(100)", unique = true, nullable = false)
+    /* This validations must be in the dto */
+//    @NotBlank(message = "Password is required")
+//    @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")
+//    @Pattern(
+//            regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+//            message = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+//    )
     private String password;
 }
