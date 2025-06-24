@@ -26,8 +26,8 @@ public class Individual {
     @Column(name = "last_name", nullable = false, columnDefinition = "VARCHAR(40)")
     private String lastName;
 
-    @OneToOne
-    @JoinColumn(name = "credential_id", referencedColumnName = "credential_id", updatable = false, insertable = false)
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "credential_id", updatable = false)
     private Credential credentials;
 
     @OneToMany
