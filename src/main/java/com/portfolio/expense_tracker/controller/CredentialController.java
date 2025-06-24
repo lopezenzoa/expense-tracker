@@ -29,4 +29,9 @@ public class CredentialController {
         Optional<String> tokenOpt = service.authenticate(body);
         return tokenOpt.<ResponseEntity<?>>map(s -> ResponseEntity.ok(Map.of("token", s))).orElseGet(() -> ResponseEntity.badRequest().body(Map.of("error", "Bad Credentials")));
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        return ResponseEntity.ok().build();
+    }
 }

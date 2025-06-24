@@ -55,7 +55,12 @@ public class SecurityConfig {
                                 // public endpoints
                                 .requestMatchers("/api/auth/register").permitAll()
                                 .requestMatchers("/api/auth/login").permitAll()
-                                .anyRequest().authenticated()
+
+                                // endpoints for Individuals
+                                .requestMatchers("/api/auth/logout").authenticated()
+
+
+                                .anyRequest().authenticated() // to catch any other request
                 )
                 // .httpBasic(Customizer.withDefaults());
                 .authenticationProvider(authenticationProvider(userDetailsService))
