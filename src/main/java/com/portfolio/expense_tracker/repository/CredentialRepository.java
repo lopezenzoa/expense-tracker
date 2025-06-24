@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface CredentialRepository extends JpaRepository<Credential, Long> {
-    @Query(value = "SELECT * FROM credentials WHERE email = :email", nativeQuery = true)
+    @Query(value = "SELECT * FROM credentials WHERE email = :email;", nativeQuery = true)
     Optional<CredentialDTO> getByEmail(@Param("email") String email);
 }
