@@ -58,6 +58,7 @@ public class SecurityConfig {
 
                                 // endpoints for Individuals
                                 .requestMatchers("/api/auth/logout").authenticated()
+                                .requestMatchers("/api/individuals/me").authenticated()
 
 
                                 .anyRequest().authenticated() // to catch any other request
