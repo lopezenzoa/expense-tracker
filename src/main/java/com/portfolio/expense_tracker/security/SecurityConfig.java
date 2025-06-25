@@ -55,11 +55,12 @@ public class SecurityConfig {
                                 // public endpoints
                                 .requestMatchers("/api/auth/register").permitAll()
                                 .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/currencies/all").permitAll() // by this way, every user can know all the currencies
 
                                 // endpoints for Individuals
                                 .requestMatchers("/api/auth/logout").authenticated()
                                 .requestMatchers("/api/individuals/me").authenticated()
-
+                                .requestMatchers("/api/incomes/me/**").authenticated()
 
                                 .anyRequest().authenticated() // to catch any other request
                 )
