@@ -1,10 +1,8 @@
 package com.portfolio.expense_tracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +27,12 @@ public class Income {
     private LocalDateTime loadDate;
 
     @OneToOne
-    @JoinColumn(name = "currency_id", updatable = false, insertable = false)
+    @JoinColumn(name = "currency_id")
     private Currency currency;
+
+    @ManyToOne
+    @JoinColumn(name = "individual_id", updatable = false)
+    private Individual individual;
 
     @ManyToMany(mappedBy = "incomes")
     private List<Label> labels;
