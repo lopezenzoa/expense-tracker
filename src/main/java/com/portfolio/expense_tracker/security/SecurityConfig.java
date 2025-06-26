@@ -61,6 +61,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/logout").authenticated()
                                 .requestMatchers("/api/individuals/me").authenticated()
                                 .requestMatchers("/api/incomes/me/**").authenticated()
+                                .requestMatchers("/api/expenses/me/**").authenticated()
 
                                 .anyRequest().authenticated() // to catch any other request
                 )

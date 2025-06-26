@@ -28,8 +28,12 @@ public class Expense {
     private LocalDateTime loadDate;
 
     @OneToOne
-    @JoinColumn(name = "currency_id", updatable = false, insertable = false)
+    @JoinColumn(name = "currency_id")
     private Currency currency;
+
+    @ManyToOne
+    @JoinColumn(name = "individual_id", updatable = false)
+    private Individual individual;
 
     @ManyToMany(mappedBy = "expenses")
     private List<Label> labels;

@@ -28,8 +28,7 @@ public class Individual {
     @JoinColumn(name = "credential_id", updatable = false)
     private Credential credentials;
 
-    @OneToMany
-    @JoinColumn(name = "expense_id", updatable = false, insertable = false)
+    @OneToMany(mappedBy = "individual")
     private List<Expense> expenses;
 
     @OneToMany(mappedBy = "individual")

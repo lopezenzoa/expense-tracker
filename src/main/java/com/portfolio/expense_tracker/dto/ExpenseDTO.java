@@ -1,5 +1,6 @@
 package com.portfolio.expense_tracker.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,6 @@ public class ExpenseDTO {
     private Double amount;
     private LocalDateTime loadDate;
     private CurrencyDTO currency;
+    @JsonIgnore private IndividualDTO individual;
     private List<LabelDTO> labels;
 }
