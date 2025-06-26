@@ -29,6 +29,12 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
+    public Optional<CurrencyDTO> getBySign(String sign) {
+        Optional<Currency> currencyOpt = repo.findTop1BySign(sign);
+        return currencyOpt.map(mapper::toDto);
+    }
+
+    @Override
     public Optional<CurrencyDTO> update(CurrencyDTO newClientData) {
         Currency updated = repo.save(mapper.toEntity(newClientData));
         return Optional.of(mapper.toDto(updated));

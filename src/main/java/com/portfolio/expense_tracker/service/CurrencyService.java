@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface CurrencyService {
     CurrencyDTO add(CurrencyDTO clientData);
     List<CurrencyDTO> getAll();
+    Optional<CurrencyDTO> getBySign(String sign);
     Optional<CurrencyDTO> update(CurrencyDTO newClientData);
     boolean delete(Long id);
 }
