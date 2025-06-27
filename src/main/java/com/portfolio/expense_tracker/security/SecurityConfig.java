@@ -62,6 +62,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/individuals/me").authenticated()
                                 .requestMatchers("/api/incomes/me/**").authenticated()
                                 .requestMatchers("/api/expenses/me/**").authenticated()
+                                .requestMatchers("/api/labels/**").authenticated() // all labels operations are free to use for authenticated individuals
 
                                 .anyRequest().authenticated() // to catch any other request
                 )
