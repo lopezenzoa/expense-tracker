@@ -1,5 +1,6 @@
 package com.portfolio.expense_tracker.service;
 
+import com.portfolio.expense_tracker.dto.IncomeDTO;
 import com.portfolio.expense_tracker.dto.LabelDTO;
 
 import java.util.List;
@@ -11,4 +12,7 @@ public interface LabelService {
     Optional<LabelDTO> getByName(String name);
     Optional<LabelDTO> update(LabelDTO newClientData);
     // boolean delete(Long id);
+    Optional<LabelDTO> addByName(String name);
+    boolean addIncome(LabelDTO label, IncomeDTO income);
+    // boolean removeIncome(LabelDTO label, IncomeDTO income);
 }

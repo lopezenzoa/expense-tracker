@@ -1,10 +1,7 @@
 package com.portfolio.expense_tracker.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Label {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +21,7 @@ public class Label {
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "labels_expenses",
             joinColumns = @JoinColumn(name = "label_id"),
@@ -31,7 +29,7 @@ public class Label {
     )
     private List<Expense> expenses;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "labels_incomes",
             joinColumns = @JoinColumn(name = "label_id"),

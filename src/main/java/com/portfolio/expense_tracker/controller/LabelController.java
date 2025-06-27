@@ -20,6 +20,12 @@ public class LabelController {
         return ResponseEntity.ok(label);
     }
 
+    @PostMapping("/add/{name}")
+    public ResponseEntity<LabelDTO> addByName(@PathVariable String name) {
+        Optional<LabelDTO> labelOpt = service.addByName(name);
+        return labelOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<LabelDTO>> getAll() {
         return ResponseEntity.ok(service.getAll());

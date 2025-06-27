@@ -1,6 +1,8 @@
 package com.portfolio.expense_tracker.controller;
 
 import com.portfolio.expense_tracker.dto.IncomeDTO;
+import com.portfolio.expense_tracker.dto.IncomeLabelDTO;
+import com.portfolio.expense_tracker.dto.LabelDTO;
 import com.portfolio.expense_tracker.service.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,4 +51,37 @@ public class IncomeController {
 
         return ResponseEntity.notFound().build();
     }
+
+    @PostMapping("/me/labels/add")
+    public ResponseEntity<Void> addLabel(@RequestBody IncomeLabelDTO body) {
+        boolean attached = service.addLabel(body);
+
+        if (attached)
+            return ResponseEntity.ok().build();
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PostMapping("/me/labels/add/{id}")
+    public ResponseEntity<Void> addLabels(@PathVariable("id") Long id, @RequestBody List<LabelDTO> body) {
+        boolean attached = service.addLabels(id, body);
+
+        if (attached)
+            return ResponseEntity.ok().build();
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    /*
+    @DeleteMapping("/me/labels/remove")
+    public ResponseEntity<Void> removeLabel(@RequestBody IncomeLabelDTO body) {
+        boolean attached = service.removeLabel(body);
+
+        if (attached)
+            return ResponseEntity.ok().build();
+
+        return ResponseEntity.badRequest().build();
+    }
+
+     */
 }

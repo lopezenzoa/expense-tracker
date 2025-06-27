@@ -40,4 +40,16 @@ public class IncomeMapper {
         entities.forEach(income -> incomes.add(toDto(income)));
         return incomes;
     }
+
+    public List<Income> toEntities(List<IncomeDTO> dtos) {
+        List<Income> incomes = new ArrayList<>();
+        dtos.forEach(dto -> incomes.add(toEntity(dto)));
+        return incomes;
+    }
+
+    public List<Income> addToEntitiesList(IncomeDTO newDto) {
+        List<Income> entities = new ArrayList<>();
+        entities.add(toEntity(newDto));
+        return entities;
+    }
 }

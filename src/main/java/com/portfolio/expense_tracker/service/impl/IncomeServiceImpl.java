@@ -1,19 +1,17 @@
 package com.portfolio.expense_tracker.service.impl;
 
-import com.portfolio.expense_tracker.dto.CurrencyDTO;
-import com.portfolio.expense_tracker.dto.IncomeDTO;
-import com.portfolio.expense_tracker.dto.IndividualDTO;
+import com.portfolio.expense_tracker.dto.*;
 import com.portfolio.expense_tracker.mapper.IncomeMapper;
 import com.portfolio.expense_tracker.model.Income;
 import com.portfolio.expense_tracker.repository.IncomeRepository;
 import com.portfolio.expense_tracker.service.CurrencyService;
 import com.portfolio.expense_tracker.service.IncomeService;
 import com.portfolio.expense_tracker.service.IndividualService;
+import com.portfolio.expense_tracker.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Currency;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +20,7 @@ public class IncomeServiceImpl implements IncomeService {
     @Autowired private IncomeRepository repo;
     @Autowired private IndividualService individualService;
     @Autowired private CurrencyService currencyService;
+    @Autowired private LabelService labelService;
     @Autowired private IncomeMapper mapper;
 
 
@@ -96,4 +95,81 @@ public class IncomeServiceImpl implements IncomeService {
         repo.deleteById(id);
         return true;
     }
+
+    /* methods related to the labels */
+    @Override
+    public boolean addLabel(IncomeLabelDTO clientData) {
+        Optional<IndividualDTO> individualOpt = individualService.getIfOwner(); // checks the user authentication
+
+        if (individualOpt.isEmpty())
+            return false;
+
+        Optional<IncomeDTO> incomeOpt = getById(clientData.getIncomeId()); // checks if the income exists
+        Optional<LabelDTO> labelOpt = labelService.getByName(clientData.getLabelName()); // checks if the label exists
+
+        // if the income doesn't exist, its no needed to execute the rest of code
+        if (incomeOpt.isEmpty())
+            return false;
+
+        if (labelOpt.isEmpty()) {
+            Optional<LabelDTO> newLabel = labelService.addByName(clientData.getLabelName());
+
+            // attaching the new label to the income
+            if (newLabel.isPresent())
+                return labelService.addIncome(newLabel.get(), incomeOpt.get());
+        } else
+            // the label already exists, so the attachment is made instantly
+            return labelService.addIncome(labelOpt.get(), incomeOpt.get());
+
+        return false; // something is wrong
+    }
+
+    @Override
+    public boolean addLabels(Long id, List<LabelDTO> labels) {
+        Optional<IndividualDTO> individualOpt = individualService.getIfOwner(); // checks the user authentication
+
+        if (individualOpt.isEmpty())
+            return false;
+
+        Optional<IncomeDTO> incomeOpt = getById(id); // checks if the income exists
+
+        // if the income doesn't exist, its no needed to execute the rest of code
+        if (incomeOpt.isEmpty())
+            return false;
+
+        for (LabelDTO label : labels) {
+            Optional<LabelDTO> labelOpt = labelService.getByName(label.getName());
+
+            if (labelOpt.isEmpty()) {
+                Optional<LabelDTO> newLabel = labelService.addByName(label.getName());
+
+                // attaching the new label to the income
+                newLabel.ifPresent(labelDTO -> labelService.addIncome(labelDTO, incomeOpt.get()));
+            } else
+                // the label already exists, so the attachment is made instantly
+                labelService.addIncome(labelOpt.get(), incomeOpt.get());
+        }
+
+        return true;
+    }
+
+    /*
+    @Override
+    public boolean removeLabel(IncomeLabelDTO clientData) {
+        Optional<IndividualDTO> individualOpt = individualService.getIfOwner(); // checks the user authentication
+
+        if (individualOpt.isEmpty())
+            return false;
+
+        Optional<IncomeDTO> incomeOpt = getById(clientData.getIncomeId()); // checks if the income exists
+        Optional<LabelDTO> labelOpt = labelService.getByName(clientData.getLabelName()); // checks if the label exists
+
+        // if the income or label don't exist, its no needed to execute the rest of code
+        if (incomeOpt.isEmpty() || labelOpt.isEmpty())
+            return false;
+
+        return labelService.removeIncome(labelOpt.get(), incomeOpt.get());
+    }
+
+     */
 }

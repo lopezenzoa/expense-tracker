@@ -1,5 +1,6 @@
 package com.portfolio.expense_tracker.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,5 @@ public class LabelDTO {
 
     // this can cause a recursive infinite call error
 //    private List<ExpenseDTO> expenses;
-//    private List<IncomeDTO> incomes;
+    @JsonIgnore private List<IncomeDTO> incomes;
 }

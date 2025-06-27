@@ -1,6 +1,8 @@
 package com.portfolio.expense_tracker.service.impl;
 
+import com.portfolio.expense_tracker.dto.IncomeDTO;
 import com.portfolio.expense_tracker.dto.LabelDTO;
+import com.portfolio.expense_tracker.mapper.IncomeMapper;
 import com.portfolio.expense_tracker.mapper.LabelMapper;
 import com.portfolio.expense_tracker.model.Label;
 import com.portfolio.expense_tracker.repository.LabelRepository;
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class LabelServiceImpl implements LabelService {
     @Autowired private LabelRepository repo;
     @Autowired private LabelMapper mapper;
+    @Autowired private IncomeMapper incomeMapper;
 
     @Override
     public LabelDTO add(LabelDTO clientData) {
@@ -39,6 +42,54 @@ public class LabelServiceImpl implements LabelService {
         Label updated = repo.save(mapper.toEntity(newClientData));
         return Optional.of(mapper.toDto(updated));
     }
+
+    @Override
+    public Optional<LabelDTO> addByName(String name) {
+        Optional<LabelDTO> labelOpt = getByName(name); // checks if the labels doesn't already exist
+
+        if (labelOpt.isPresent())
+            return Optional.empty();
+
+        LabelDTO dto = new LabelDTO(null, name, null);
+        Label saved = repo.save(mapper.toEntity(dto));
+
+        return Optional.of(mapper.toDto(saved));
+    }
+
+    @Override
+    public boolean addIncome(LabelDTO label, IncomeDTO income) {
+        Label entity = mapper.toEntity(label);
+        entity.setIncomes(incomeMapper.addToEntitiesList(income));
+
+        repo.save(entity);
+
+        return true;
+    }
+
+    /*
+    @Override
+    public boolean removeIncome(LabelDTO label, IncomeDTO income) {
+//        Optional<LabelDTO> labelOpt = getByName(label.getName());
+        Optional<Label> entityOpt = repo.findByName(label.getName());
+
+        if (entityOpt.isPresent()) {
+            // System.out.println("Before: \n" + entity);
+
+            Label entity = entityOpt.get();
+
+            List<Income> incomes = entity.getIncomes();// firstly, I remove the income from the label's list
+            incomes.remove(incomeMapper.toEntity(income));
+
+            entity.setIncomes(incomes);
+
+            repo.save(entity);
+            return true;
+        }
+
+        return false;
+    }
+
+     */
 
     /*
 
