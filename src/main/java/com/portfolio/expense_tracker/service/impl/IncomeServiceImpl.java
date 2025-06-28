@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -185,5 +187,38 @@ public class IncomeServiceImpl implements IncomeService {
         repo.removeLabel(labelOpt.get().getId(), incomeOpt.get().getId());
 
         return true;
+    }
+
+    @Override
+    public Optional<List<IncomeDTO>> filterByLabel(String labelName) {
+        List<IncomeDTO> incomes = getAll();
+        Optional<LabelDTO> labelOpt = labelService.getByName(labelName);
+
+        if (labelOpt.isEmpty())
+            return Optional.empty();
+
+        List<IncomeDTO> incomesFiltered = incomes.stream()
+                .filter(income -> income.getLabels().contains(labelOpt.get()))
+                .toList();
+
+        return Optional.of(incomesFiltered);
+    }
+
+    @Override
+    public Optional<List<IncomeDTO>> filterByMultipleLabels(List<LabelDTO> clientData) {
+        List<IncomeDTO> incomes = getAll();
+        List<LabelDTO> validLabels = new ArrayList<>();
+
+        for (LabelDTO item : clientData) {
+            // if the label is found, it's add to the list of valid labels
+            Optional<LabelDTO> labelOpt = labelService.getByName(item.getName());
+            labelOpt.ifPresent(validLabels::add);
+        }
+
+        List<IncomeDTO> incomesFiltered = incomes.stream()
+                .filter(income -> new HashSet<>(income.getLabels()).containsAll(validLabels))
+                .toList();
+
+        return Optional.of(incomesFiltered);
     }
 }

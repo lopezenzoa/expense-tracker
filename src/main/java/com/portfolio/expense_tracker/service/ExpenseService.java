@@ -18,4 +18,8 @@ public interface ExpenseService {
     boolean addLabel(ExpenseLabelDTO clientData);
     boolean addLabels(Long id, List<LabelDTO> labels);
     boolean removeLabel(ExpenseLabelDTO clientData);
+
+    /* filtering methods */
+    Optional<List<ExpenseDTO>> filterByLabel(String clientData);
+    Optional<List<ExpenseDTO>> filterByMultipleLabels(List<LabelDTO> clientData);
 }

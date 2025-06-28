@@ -18,4 +18,8 @@ public interface IncomeService {
     boolean addLabel(IncomeLabelDTO clientData);
     boolean addLabels(Long id, List<LabelDTO> labels);
     boolean removeLabel(IncomeLabelDTO clientData);
+
+    /* filtering methods */
+    Optional<List<IncomeDTO>> filterByLabel(String clientData);
+    Optional<List<IncomeDTO>> filterByMultipleLabels(List<LabelDTO> clientData);
 }

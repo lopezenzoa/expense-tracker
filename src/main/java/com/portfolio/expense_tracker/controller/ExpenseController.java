@@ -36,6 +36,19 @@ public class ExpenseController {
         return service.getById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/me/filter/{labelName}")
+    public ResponseEntity<List<ExpenseDTO>> filterByLabel(@PathVariable String labelName) {
+        Optional<List<ExpenseDTO>> response = service.filterByLabel(labelName);
+        return response.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/me/filter")
+    public ResponseEntity<List<ExpenseDTO>> filterByLabel(@RequestBody List<LabelDTO> body) {
+        Optional<List<ExpenseDTO>> response = service.filterByMultipleLabels(body);
+        return response.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
     @PutMapping("/me/update")
     public ResponseEntity<ExpenseDTO> update(@RequestBody ExpenseDTO body) {
         Optional<ExpenseDTO> expenseDTO = service.update(body);

@@ -31,6 +31,18 @@ public class IncomeController {
         return ResponseEntity.ok(service.getAll());
     }
 
+    @GetMapping("/me/filter/{labelName}")
+    public ResponseEntity<List<IncomeDTO>> filterByLabel(@PathVariable String labelName) {
+        Optional<List<IncomeDTO>> response = service.filterByLabel(labelName);
+        return response.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/me/filter")
+    public ResponseEntity<List<IncomeDTO>> filterByLabel(@RequestBody List<LabelDTO> body) {
+        Optional<List<IncomeDTO>> response = service.filterByMultipleLabels(body);
+        return response.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/me/{id}")
     public ResponseEntity<IncomeDTO> getById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
