@@ -12,6 +12,7 @@ import java.util.List;
 public class ExpenseMapper {
     @Autowired private IndividualMapper individualMapper;
     @Autowired private CurrencyMapper currencyMapper;
+    @Autowired private LabelMapper labelMapper;
 
     public Expense toEntity(ExpenseDTO dto) {
         return new Expense(
@@ -20,7 +21,7 @@ public class ExpenseMapper {
                 dto.getLoadDate(),
                 dto.getCurrency() == null ? null : currencyMapper.toEntity(dto.getCurrency()),
                 individualMapper.toEntity(dto.getIndividual()),
-                null
+                dto.getLabels() == null ? new ArrayList<>() : labelMapper.toEntities(dto.getLabels())
         );
     }
 
@@ -31,7 +32,7 @@ public class ExpenseMapper {
                 entity.getLoadDate(),
                 entity.getCurrency() == null ? null : currencyMapper.toDto(entity.getCurrency()),
                 individualMapper.toDto(entity.getIndividual()),
-                null
+                entity.getLabels() == null ? new ArrayList<>() : labelMapper.toDtoList(entity.getLabels())
         );
     }
 

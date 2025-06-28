@@ -34,6 +34,11 @@ public class Income {
     @JoinColumn(name = "individual_id", updatable = false)
     private Individual individual;
 
-    @ManyToMany(mappedBy = "incomes")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "labels_incomes",
+            joinColumns = @JoinColumn(name = "income_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
     private List<Label> labels;
 }

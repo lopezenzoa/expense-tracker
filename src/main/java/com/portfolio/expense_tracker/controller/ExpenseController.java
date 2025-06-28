@@ -1,6 +1,8 @@
 package com.portfolio.expense_tracker.controller;
 
 import com.portfolio.expense_tracker.dto.ExpenseDTO;
+import com.portfolio.expense_tracker.dto.ExpenseLabelDTO;
+import com.portfolio.expense_tracker.dto.LabelDTO;
 import com.portfolio.expense_tracker.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +50,35 @@ public class ExpenseController {
             return ResponseEntity.ok().build();
 
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/me/labels/add")
+    public ResponseEntity<Void> addLabel(@RequestBody ExpenseLabelDTO body) {
+        boolean attached = service.addLabel(body);
+
+        if (attached)
+            return ResponseEntity.ok().build();
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PostMapping("/me/labels/add/{id}")
+    public ResponseEntity<Void> addLabels(@PathVariable("id") Long id, @RequestBody List<LabelDTO> body) {
+        boolean attached = service.addLabels(id, body);
+
+        if (attached)
+            return ResponseEntity.ok().build();
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/me/labels/remove")
+    public ResponseEntity<Void> removeLabel(@RequestBody ExpenseLabelDTO body) {
+        boolean attached = service.removeLabel(body);
+
+        if (attached)
+            return ResponseEntity.ok().build();
+
+        return ResponseEntity.badRequest().build();
     }
 }

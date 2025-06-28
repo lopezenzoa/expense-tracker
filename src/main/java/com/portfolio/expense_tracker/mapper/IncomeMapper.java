@@ -12,6 +12,7 @@ import java.util.List;
 public class IncomeMapper {
     @Autowired private IndividualMapper individualMapper;
     @Autowired private CurrencyMapper currencyMapper;
+    @Autowired private LabelMapper labelMapper;
 
     public Income toEntity(IncomeDTO dto) {
         return new Income(
@@ -20,7 +21,7 @@ public class IncomeMapper {
                 dto.getLoadDate(),
                 dto.getCurrency() == null ? null : currencyMapper.toEntity(dto.getCurrency()),
                 individualMapper.toEntity(dto.getIndividual()),
-                null
+                dto.getLabels() == null ? new ArrayList<>() : labelMapper.toEntities(dto.getLabels())
         );
     }
 
@@ -31,7 +32,7 @@ public class IncomeMapper {
                 entity.getLoadDate(),
                 entity.getCurrency() == null ? null : currencyMapper.toDto(entity.getCurrency()),
                 individualMapper.toDto(entity.getIndividual()),
-                null
+                entity.getLabels() == null ? new ArrayList<>() : labelMapper.toDtoList(entity.getLabels())
         );
     }
 
@@ -39,17 +40,5 @@ public class IncomeMapper {
         List<IncomeDTO> incomes = new ArrayList<>();
         entities.forEach(income -> incomes.add(toDto(income)));
         return incomes;
-    }
-
-    public List<Income> toEntities(List<IncomeDTO> dtos) {
-        List<Income> incomes = new ArrayList<>();
-        dtos.forEach(dto -> incomes.add(toEntity(dto)));
-        return incomes;
-    }
-
-    public List<Income> addToEntitiesList(IncomeDTO newDto) {
-        List<Income> entities = new ArrayList<>();
-        entities.add(toEntity(newDto));
-        return entities;
     }
 }

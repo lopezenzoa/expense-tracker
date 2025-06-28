@@ -2,7 +2,6 @@ package com.portfolio.expense_tracker.mapper;
 
 import com.portfolio.expense_tracker.dto.LabelDTO;
 import com.portfolio.expense_tracker.model.Label;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,22 +9,17 @@ import java.util.List;
 
 @Component
 public class LabelMapper {
-    @Autowired private IncomeMapper incomeMapper;
-
     public Label toEntity(LabelDTO dto) {
         return new Label(
                 dto.getId(),
-                dto.getName(),
-                null,
-                incomeMapper.toEntities(dto.getIncomes())
+                dto.getName()
         );
     }
 
     public LabelDTO toDto(Label entity) {
         return new LabelDTO(
                 entity.getId(),
-                entity.getName(),
-                incomeMapper.toDtoList(entity.getIncomes())
+                entity.getName()
         );
     }
 

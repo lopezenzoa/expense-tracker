@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LabelDTO {
-    private Long id;
-    private String name;
+public class ExpenseLabelDTO {
+    private Long expenseId;
+    private String labelName;
 }

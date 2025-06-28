@@ -35,6 +35,11 @@ public class Expense {
     @JoinColumn(name = "individual_id", updatable = false)
     private Individual individual;
 
-    @ManyToMany(mappedBy = "expenses")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "labels_expenses",
+            joinColumns = @JoinColumn(name = "expense_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
     private List<Label> labels;
 }

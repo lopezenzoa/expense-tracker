@@ -13,6 +13,4 @@ public interface LabelService {
     Optional<LabelDTO> update(LabelDTO newClientData);
     // boolean delete(Long id);
     Optional<LabelDTO> addByName(String name);
-    boolean addIncome(LabelDTO label, IncomeDTO income);
-    // boolean removeIncome(LabelDTO label, IncomeDTO income);
 }

@@ -72,7 +72,6 @@ public class IncomeController {
         return ResponseEntity.badRequest().build();
     }
 
-    /*
     @DeleteMapping("/me/labels/remove")
     public ResponseEntity<Void> removeLabel(@RequestBody IncomeLabelDTO body) {
         boolean attached = service.removeLabel(body);
@@ -82,6 +81,4 @@ public class IncomeController {
 
         return ResponseEntity.badRequest().build();
     }
-
-     */
 }

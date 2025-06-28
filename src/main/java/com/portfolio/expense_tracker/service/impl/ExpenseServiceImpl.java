@@ -1,14 +1,14 @@
 package com.portfolio.expense_tracker.service.impl;
 
-import com.portfolio.expense_tracker.dto.CurrencyDTO;
-import com.portfolio.expense_tracker.dto.ExpenseDTO;
-import com.portfolio.expense_tracker.dto.IndividualDTO;
+import com.portfolio.expense_tracker.dto.*;
 import com.portfolio.expense_tracker.mapper.ExpenseMapper;
+import com.portfolio.expense_tracker.mapper.LabelMapper;
 import com.portfolio.expense_tracker.model.Expense;
 import com.portfolio.expense_tracker.repository.ExpenseRepository;
 import com.portfolio.expense_tracker.service.CurrencyService;
 import com.portfolio.expense_tracker.service.ExpenseService;
 import com.portfolio.expense_tracker.service.IndividualService;
+import com.portfolio.expense_tracker.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,8 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Autowired private IndividualService individualService;
     @Autowired private CurrencyService currencyService;
     @Autowired private ExpenseMapper mapper;
+    @Autowired private LabelService labelService;
+    @Autowired private LabelMapper labelMapper;
 
 
     @Override
@@ -94,6 +96,96 @@ public class ExpenseServiceImpl implements ExpenseService {
             return false;
 
         repo.deleteById(id);
+        return true;
+    }
+
+    /* methods related to the labels */
+    @Override
+    public boolean addLabel(ExpenseLabelDTO clientData) {
+        Optional<IndividualDTO> individualOpt = individualService.getIfOwner(); // checks the user authentication
+
+        if (individualOpt.isEmpty())
+            return false;
+
+        Optional<ExpenseDTO> expenseOpt = getById(clientData.getExpenseId()); // checks if the expense exists
+        Optional<LabelDTO> labelOpt = labelService.getByName(clientData.getLabelName()); // checks if the label exists
+
+        // if the expense doesn't exist, its no needed to execute the rest of code
+        if (expenseOpt.isEmpty())
+            return false;
+
+        if (labelOpt.isEmpty()) {
+            // the label doesn't exist yet, so its created
+            Optional<LabelDTO> newLabel = labelService.addByName(clientData.getLabelName());
+
+            // attaching the new label to the expense
+            if (newLabel.isPresent()) {
+                Expense expense = mapper.toEntity(expenseOpt.get());
+                expense.getLabels().add(labelMapper.toEntity(newLabel.get()));
+                repo.save(expense);
+
+                return true;
+            }
+        } else {
+            // the label already exists, so the attachment is made instantly
+            Expense expense = mapper.toEntity(expenseOpt.get());
+            expense.getLabels().add(labelMapper.toEntity(labelOpt.get()));
+            repo.save(expense);
+
+            return true;
+        }
+
+
+        return false; // something is wrong
+    }
+
+
+    @Override
+    public boolean addLabels(Long id, List<LabelDTO> labels) {
+        Optional<IndividualDTO> individualOpt = individualService.getIfOwner(); // checks the user authentication
+
+        if (individualOpt.isEmpty())
+            return false;
+
+        Optional<ExpenseDTO> expenseOpt = getById(id); // checks if the expense exists
+
+        // if the expense doesn't exist, its no needed to execute the rest of code
+        if (expenseOpt.isEmpty())
+            return false;
+
+        for (LabelDTO label : labels) {
+            Optional<LabelDTO> labelOpt = labelService.getByName(label.getName());
+
+            if (labelOpt.isEmpty())
+                // the label doesn't exist, so its created
+                labelOpt = labelService.addByName(label.getName());
+
+            if (labelOpt.isPresent()) {
+                Expense expense = mapper.toEntity(expenseOpt.get());
+                expense.getLabels().add(labelMapper.toEntity(labelOpt.get()));
+                repo.save(expense);
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean removeLabel(ExpenseLabelDTO clientData) {
+        Optional<IndividualDTO> individualOpt = individualService.getIfOwner(); // checks the user authentication
+
+        if (individualOpt.isEmpty())
+            return false;
+
+        Optional<ExpenseDTO> expenseOpt = getById(clientData.getExpenseId()); // checks if the income exists
+        Optional<LabelDTO> labelOpt = labelService.getByName(clientData.getLabelName()); // checks if the label exists
+
+        // if the income or label don't exist, its no needed to execute the rest of code
+        if (expenseOpt.isEmpty() || labelOpt.isEmpty())
+            return false;
+
+        repo.removeLabel(labelOpt.get().getId(), expenseOpt.get().getId());
+
         return true;
     }
 }

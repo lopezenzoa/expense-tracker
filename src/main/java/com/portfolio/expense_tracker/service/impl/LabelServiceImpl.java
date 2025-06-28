@@ -50,46 +50,11 @@ public class LabelServiceImpl implements LabelService {
         if (labelOpt.isPresent())
             return Optional.empty();
 
-        LabelDTO dto = new LabelDTO(null, name, null);
+        LabelDTO dto = new LabelDTO(null, name);
         Label saved = repo.save(mapper.toEntity(dto));
 
         return Optional.of(mapper.toDto(saved));
     }
-
-    @Override
-    public boolean addIncome(LabelDTO label, IncomeDTO income) {
-        Label entity = mapper.toEntity(label);
-        entity.setIncomes(incomeMapper.addToEntitiesList(income));
-
-        repo.save(entity);
-
-        return true;
-    }
-
-    /*
-    @Override
-    public boolean removeIncome(LabelDTO label, IncomeDTO income) {
-//        Optional<LabelDTO> labelOpt = getByName(label.getName());
-        Optional<Label> entityOpt = repo.findByName(label.getName());
-
-        if (entityOpt.isPresent()) {
-            // System.out.println("Before: \n" + entity);
-
-            Label entity = entityOpt.get();
-
-            List<Income> incomes = entity.getIncomes();// firstly, I remove the income from the label's list
-            incomes.remove(incomeMapper.toEntity(income));
-
-            entity.setIncomes(incomes);
-
-            repo.save(entity);
-            return true;
-        }
-
-        return false;
-    }
-
-     */
 
     /*
 

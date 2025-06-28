@@ -14,8 +14,8 @@ public interface IncomeService {
     Optional<IncomeDTO> update(IncomeDTO newClientData);
     boolean delete(Long id);
 
-    // methods related to the labels of the income
+    /* methods related to the labels of the income */
     boolean addLabel(IncomeLabelDTO clientData);
     boolean addLabels(Long id, List<LabelDTO> labels);
-    // boolean removeLabel(IncomeLabelDTO clientData);
+    boolean removeLabel(IncomeLabelDTO clientData);
 }

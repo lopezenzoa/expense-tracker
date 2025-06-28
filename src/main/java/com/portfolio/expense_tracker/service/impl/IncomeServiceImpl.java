@@ -2,6 +2,8 @@ package com.portfolio.expense_tracker.service.impl;
 
 import com.portfolio.expense_tracker.dto.*;
 import com.portfolio.expense_tracker.mapper.IncomeMapper;
+import com.portfolio.expense_tracker.mapper.LabelMapper;
+import com.portfolio.expense_tracker.model.Expense;
 import com.portfolio.expense_tracker.model.Income;
 import com.portfolio.expense_tracker.repository.IncomeRepository;
 import com.portfolio.expense_tracker.service.CurrencyService;
@@ -22,6 +24,7 @@ public class IncomeServiceImpl implements IncomeService {
     @Autowired private CurrencyService currencyService;
     @Autowired private LabelService labelService;
     @Autowired private IncomeMapper mapper;
+    @Autowired private LabelMapper labelMapper;
 
 
     @Override
@@ -114,12 +117,22 @@ public class IncomeServiceImpl implements IncomeService {
         if (labelOpt.isEmpty()) {
             Optional<LabelDTO> newLabel = labelService.addByName(clientData.getLabelName());
 
-            // attaching the new label to the income
-            if (newLabel.isPresent())
-                return labelService.addIncome(newLabel.get(), incomeOpt.get());
-        } else
+            // attaching the new label to the expense
+            if (newLabel.isPresent()) {
+                Income income = mapper.toEntity(incomeOpt.get());
+                income.getLabels().add(labelMapper.toEntity(newLabel.get()));
+                repo.save(income);
+
+                return true;
+            }
+        } else {
             // the label already exists, so the attachment is made instantly
-            return labelService.addIncome(labelOpt.get(), incomeOpt.get());
+            Income income = mapper.toEntity(incomeOpt.get());
+            income.getLabels().add(labelMapper.toEntity(labelOpt.get()));
+            repo.save(income);
+
+            return true;
+        }
 
         return false; // something is wrong
     }
@@ -140,20 +153,21 @@ public class IncomeServiceImpl implements IncomeService {
         for (LabelDTO label : labels) {
             Optional<LabelDTO> labelOpt = labelService.getByName(label.getName());
 
-            if (labelOpt.isEmpty()) {
-                Optional<LabelDTO> newLabel = labelService.addByName(label.getName());
+            if (labelOpt.isEmpty())
+                // the label doesn't exist, so its created
+                labelOpt = labelService.addByName(label.getName());
 
-                // attaching the new label to the income
-                newLabel.ifPresent(labelDTO -> labelService.addIncome(labelDTO, incomeOpt.get()));
-            } else
-                // the label already exists, so the attachment is made instantly
-                labelService.addIncome(labelOpt.get(), incomeOpt.get());
+            if (labelOpt.isPresent()) {
+                Income income = mapper.toEntity(incomeOpt.get());
+                income.getLabels().add(labelMapper.toEntity(labelOpt.get()));
+                repo.save(income);
+            }
         }
 
         return true;
     }
 
-    /*
+
     @Override
     public boolean removeLabel(IncomeLabelDTO clientData) {
         Optional<IndividualDTO> individualOpt = individualService.getIfOwner(); // checks the user authentication
@@ -168,8 +182,8 @@ public class IncomeServiceImpl implements IncomeService {
         if (incomeOpt.isEmpty() || labelOpt.isEmpty())
             return false;
 
-        return labelService.removeIncome(labelOpt.get(), incomeOpt.get());
-    }
+        repo.removeLabel(labelOpt.get().getId(), incomeOpt.get().getId());
 
-     */
+        return true;
+    }
 }
