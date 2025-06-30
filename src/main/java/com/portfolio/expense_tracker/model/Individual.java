@@ -1,10 +1,7 @@
 package com.portfolio.expense_tracker.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Individual {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,15 +24,13 @@ public class Individual {
     @Column(name = "last_name", nullable = false, columnDefinition = "VARCHAR(40)")
     private String lastName;
 
-    @OneToOne
-    @JoinColumn(name = "credential_id", referencedColumnName = "credential_id", updatable = false, insertable = false)
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "credential_id", updatable = false)
     private Credential credentials;
 
-    @OneToMany
-    @JoinColumn(name = "expense_id", updatable = false, insertable = false)
+    @OneToMany(mappedBy = "individual")
     private List<Expense> expenses;
 
-    @OneToMany
-    @JoinColumn(name = "income_id", updatable = false, insertable = false)
+    @OneToMany(mappedBy = "individual")
     private List<Income> incomes;
 }

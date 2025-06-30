@@ -1,10 +1,8 @@
 package com.portfolio.expense_tracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +26,19 @@ public class Income {
     @Column(name = "load_date", columnDefinition = "DATETIME")
     private LocalDateTime loadDate;
 
-    @OneToOne
-    @JoinColumn(name = "currency_id", updatable = false, insertable = false)
+    @ManyToOne // a many-to-one relationship is needed to avoid duplicate entries
+    @JoinColumn(name = "currency_id")
     private Currency currency;
 
-    @ManyToMany(mappedBy = "incomes")
+    @ManyToOne
+    @JoinColumn(name = "individual_id", updatable = false)
+    private Individual individual;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "labels_incomes",
+            joinColumns = @JoinColumn(name = "income_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
     private List<Label> labels;
 }

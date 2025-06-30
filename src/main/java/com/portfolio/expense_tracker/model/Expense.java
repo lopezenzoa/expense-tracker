@@ -27,10 +27,19 @@ public class Expense {
     @Column(name = "load_date", columnDefinition = "DATETIME")
     private LocalDateTime loadDate;
 
-    @OneToOne
-    @JoinColumn(name = "currency_id", updatable = false, insertable = false)
+    @ManyToOne // a many-to-one relationship is needed to avoid duplicate entries
+    @JoinColumn(name = "currency_id")
     private Currency currency;
 
-    @ManyToMany(mappedBy = "expenses")
+    @ManyToOne
+    @JoinColumn(name = "individual_id", updatable = false)
+    private Individual individual;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "labels_expenses",
+            joinColumns = @JoinColumn(name = "expense_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
     private List<Label> labels;
 }
