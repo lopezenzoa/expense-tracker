@@ -27,7 +27,7 @@ public class Expense {
     @Column(name = "load_date", columnDefinition = "DATETIME")
     private LocalDateTime loadDate;
 
-    @OneToOne
+    @ManyToOne // a many-to-one relationship is needed to avoid duplicate entries
     @JoinColumn(name = "currency_id")
     private Currency currency;
 
