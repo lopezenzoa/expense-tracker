@@ -1,0 +1,1378 @@
+{
+	"info": {
+		"_postman_id": "28cabf3d-c786-491f-b893-1318a17eb2cb",
+		"name": "Expense Tracker API (v.0.0.1)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41834937",
+		"_collection_link": "https://mis-servicios-api.postman.co/workspace/Team-Workspace~d7ab4cd2-ece7-4258-8875-db63a6348749/collection/41834937-28cabf3d-c786-491f-b893-1318a17eb2cb?action=share&source=collection_link&creator=41834937"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Enzo\",\n    \"lastName\": \"Lopez\",\n    \"email\": \"enzo000@gmail.com\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"enzo000@gmail.com\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMThAZ21haWwuY29tIiwiaWF0IjoxNzUwNzcyNjkwLCJleHAiOjE3NTA3NzYyOTB9.wNT25nE-WhUeUi-Nx0BAXqfX4HLQlVMKvCG3R4X85tw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All endpoints related to the authentication of a client"
+		},
+		{
+			"name": "Individuals",
+			"item": [
+				{
+					"name": "Get Individual (if owner)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMjBAZ21haWwuY29tIiwiaWF0IjoxNzUwODU4MzkyLCJleHAiOjE3NTA4NjE5OTJ9.koem2HjoUHse42G05efrCUQFhr4IutZG12w4DH0Llxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/individuals/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"individuals",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Individual (if owner)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMTdAZ21haWwuY29tIiwiaWF0IjoxNzUwODU3MDgwLCJleHAiOjE3NTA4NjA2ODB9.hHyf1uYK_KRPnv5seWwK9aOTaSS2TbRJjTZjswgLc8Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 11,\n    \"firstName\": \"Enzo\",\n    \"lastName\": \"Lopez\",\n    \"credentials\": {\n        \"id\": 31,\n        \"email\": \"enzo20@gmail.com\",\n        \"password\": \"$2a$10$lkSjsGTqvhpKB7NT4lXfleIwJIfFiTBsfOm3xFIs6fyIOOnMHRy2y\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/individuals/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"individuals",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All endpoints related to the Individuals information"
+		},
+		{
+			"name": "Incomes",
+			"item": [
+				{
+					"name": "Add income",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTI4MzMwNiwiZXhwIjoxNzUxMjg2OTA2fQ.fXuhhgcOD5KwJj5DTgkZobryCEcEPyLarx4LUuQkf-Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"50.6\",\n    \"currency\": {\n        \"sign\": \"€\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all incomes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTE0MDIxNCwiZXhwIjoxNzUxMTQzODE0fQ.53RWlncTfAR2gc3sjZ8lfWBiutM3VKJl3FSKS-nzCGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get incomes full history",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTI4MjI0MSwiZXhwIjoxNzUxMjg1ODQxfQ.X7DFT4ziikiXZt8PjQejXr6p4qfJzAtNASxqJ96K7qs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter incomes by a label",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTEzOTM1NiwiZXhwIjoxNzUxMTQyOTU2fQ.ydCaV6xl6lOz6TUiNlw38PhVxvIHiyZHd_mv9MJ4Ioc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/filter/familiy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"filter",
+								"familiy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter incomes by multiple labels",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTE0MDIxNCwiZXhwIjoxNzUxMTQzODE0fQ.53RWlncTfAR2gc3sjZ8lfWBiutM3VKJl3FSKS-nzCGg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\": \"work\"\n    },\n    {\n        \"name\": \"family\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an income by its id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0NzQ5NiwiZXhwIjoxNzUwOTUxMDk2fQ.njiaqmXTETFZxEenVlUKxe_IX--ozxa23YAvpq-Psuk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an income",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAyQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0MTg2NCwiZXhwIjoxNzUwOTQ1NDY0fQ.uOtOGIxfMBxnEKGYApY8JA49Bdx3GX7FOVd61Q9PaHs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"amount\": 48.6,\n    \"loadDate\": \"2025-06-26T09:23:07\",\n    \"currency\": {\n        \"sign\": \"€\"\n    },\n    \"labels\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an income",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAyQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0MjA0OCwiZXhwIjoxNzUwOTQ1NjQ4fQ.72HFQvc_RH5HwWTcrDUF0xg-kOyJiu-IN5czGMb9ArY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attach label to an income",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTEyMDMxMSwiZXhwIjoxNzUxMTIzOTExfQ.VTjsjA7QBy6egZgWlWb6YnpHSzR4Uj6-Dtlj9FSzxWQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"incomeId\": 1,\n    \"labelName\": \"other\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/labels/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"labels",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attach multiple labels to an income",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTEyMDMxMSwiZXhwIjoxNzUxMTIzOTExfQ.VTjsjA7QBy6egZgWlWb6YnpHSzR4Uj6-Dtlj9FSzxWQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\": \"family\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/labels/add/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"labels",
+								"add",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a label from an income",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTEyMDMxMSwiZXhwIjoxNzUxMTIzOTExfQ.VTjsjA7QBy6egZgWlWb6YnpHSzR4Uj6-Dtlj9FSzxWQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"incomeId\": 1,\n    \"labelName\": \"other\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/incomes/me/labels/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"incomes",
+								"me",
+								"labels",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All enpoints related to the incomes load by Individual"
+		},
+		{
+			"name": "Expenses",
+			"item": [
+				{
+					"name": "Add expense",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTI4MzM2NSwiZXhwIjoxNzUxMjg2OTY1fQ.CbZsArZEg1chOCredgkLrsx46ORYfWOu4NgbB1Picb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"51.6\",\n    \"currency\": {\n        \"sign\": \"€\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all expenses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0NzQ5NiwiZXhwIjoxNzUwOTUxMDk2fQ.njiaqmXTETFZxEenVlUKxe_IX--ozxa23YAvpq-Psuk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get expenses full history",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTI4MjI0MSwiZXhwIjoxNzUxMjg1ODQxfQ.X7DFT4ziikiXZt8PjQejXr6p4qfJzAtNASxqJ96K7qs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter expenses by a label",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTE0MDU5NSwiZXhwIjoxNzUxMTQ0MTk1fQ.i-hoCA3HXbshCyrOemBUltclyyL6vWpv4v1BNePyVJM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/filter/other",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"filter",
+								"other"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter expenses by multiple labels",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTE0MDU5NSwiZXhwIjoxNzUxMTQ0MTk1fQ.i-hoCA3HXbshCyrOemBUltclyyL6vWpv4v1BNePyVJM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\": \"work\"\n    },\n    {\n        \"name\": \"family\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an expense by its id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0NzQ5NiwiZXhwIjoxNzUwOTUxMDk2fQ.njiaqmXTETFZxEenVlUKxe_IX--ozxa23YAvpq-Psuk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an expense",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0NzQ5NiwiZXhwIjoxNzUwOTUxMDk2fQ.njiaqmXTETFZxEenVlUKxe_IX--ozxa23YAvpq-Psuk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"amount\": 48.6,\n    \"loadDate\": \"2025-06-26T09:23:07\",\n    \"currency\": {\n        \"sign\": \"€\"\n    },\n    \"labels\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an expense",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MDk0NzQ5NiwiZXhwIjoxNzUwOTUxMDk2fQ.njiaqmXTETFZxEenVlUKxe_IX--ozxa23YAvpq-Psuk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attach label to an expense",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTExOTQyNCwiZXhwIjoxNzUxMTIzMDI0fQ.ubx5NpOLQuXbXn8sdjWxf-DrDSIJSSmnNCt17Rmurjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"expenseId\": 4,\n    \"labelName\": \"university\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/labels/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"labels",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attach multiple labels to an expense",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTExOTQyNCwiZXhwIjoxNzUxMTIzMDI0fQ.ubx5NpOLQuXbXn8sdjWxf-DrDSIJSSmnNCt17Rmurjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\": \"work\"\n    },\n    {\n        \"name\": \"family\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/labels/add/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"labels",
+								"add",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a label from an expense",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTExOTQyNCwiZXhwIjoxNzUxMTIzMDI0fQ.ubx5NpOLQuXbXn8sdjWxf-DrDSIJSSmnNCt17Rmurjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"expenseId\": 4,\n    \"labelName\": \"other\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/expenses/me/labels/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"expenses",
+								"me",
+								"labels",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All enpoints related to the incomes load by Individual"
+		},
+		{
+			"name": "Currencies",
+			"item": [
+				{
+					"name": "Add currency",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Brazilian Real\",\n    \"sign\": \"R$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/currencies/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currencies",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all currencies",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/currencies/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currencies",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update currency",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 7,\n    \"name\": \"Turkish Lira\",\n    \"sign\": \"₺\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/currencies/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currencies",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete currency",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/currencies/delete/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"currencies",
+								"delete",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All endpoints related to the control of currencies"
+		},
+		{
+			"name": "Labels",
+			"item": [
+				{
+					"name": "Add label",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTAzMzk0OSwiZXhwIjoxNzUxMDM3NTQ5fQ.Ykyeml5t_NjQTkIKASu-6JoOz7yO5UWeAyo8juwkVvk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"other\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/labels/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"labels",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add label by its name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTAzNTcwNiwiZXhwIjoxNzUxMDM5MzA2fQ.RgU0P2OsAENZw5XBmGfd4-Q8Bzei4oi6RzHxAIN5FaU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/labels/add/family",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"labels",
+								"add",
+								"family"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all labels",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTA1ODU2OSwiZXhwIjoxNzUxMDYyMTY5fQ.nr32CHBWbN2gcHXDgEZ5ysEaFEolc1e4asyBlzjQrnU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/labels/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"labels",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a label by its name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTAzMzk0OSwiZXhwIjoxNzUxMDM3NTQ5fQ.Ykyeml5t_NjQTkIKASu-6JoOz7yO5UWeAyo8juwkVvk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/labels/work",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"labels",
+								"work"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update label",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbnpvMDAwQGdtYWlsLmNvbSIsImlhdCI6MTc1MTAzMzk0OSwiZXhwIjoxNzUxMDM3NTQ5fQ.Ykyeml5t_NjQTkIKASu-6JoOz7yO5UWeAyo8juwkVvk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"university\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/labels/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"labels",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All endpoints related to the control of currencies"
+		}
+	]
+}
