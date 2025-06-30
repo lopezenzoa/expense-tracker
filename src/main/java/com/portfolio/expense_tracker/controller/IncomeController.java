@@ -31,6 +31,11 @@ public class IncomeController {
         return ResponseEntity.ok(service.getAll());
     }
 
+    @GetMapping("/me/history")
+    public ResponseEntity<List<IncomeDTO>> getFullHistory() {
+        return ResponseEntity.ok(service.getFullHistory());
+    }
+
     @GetMapping("/me/filter/{labelName}")
     public ResponseEntity<List<IncomeDTO>> filterByLabel(@PathVariable String labelName) {
         Optional<List<IncomeDTO>> response = service.filterByLabel(labelName);

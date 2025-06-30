@@ -2,6 +2,7 @@ package com.portfolio.expense_tracker.controller;
 
 import com.portfolio.expense_tracker.dto.ExpenseDTO;
 import com.portfolio.expense_tracker.dto.ExpenseLabelDTO;
+import com.portfolio.expense_tracker.dto.IncomeDTO;
 import com.portfolio.expense_tracker.dto.LabelDTO;
 import com.portfolio.expense_tracker.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,12 @@ public class ExpenseController {
     @GetMapping("/me")
     public ResponseEntity<List<ExpenseDTO>> getAll() {
         return ResponseEntity.ok(service.getAll());
+    }
+
+
+    @GetMapping("/me/history")
+    public ResponseEntity<List<ExpenseDTO>> getFullHistory() {
+        return ResponseEntity.ok(service.getFullHistory());
     }
 
     @GetMapping("/me/{id}")

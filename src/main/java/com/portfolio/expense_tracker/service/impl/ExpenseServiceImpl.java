@@ -223,4 +223,10 @@ public class ExpenseServiceImpl implements ExpenseService {
 
         return Optional.of(expensesFiltered);
     }
+
+    @Override
+    public List<ExpenseDTO> getFullHistory() {
+        List<Expense> expenses = repo.findAllByOrderByLoadDate();
+        return mapper.toDtoList(expenses);
+    }
 }

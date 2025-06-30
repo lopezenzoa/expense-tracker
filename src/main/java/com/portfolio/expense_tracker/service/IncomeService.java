@@ -22,4 +22,7 @@ public interface IncomeService {
     /* filtering methods */
     Optional<List<IncomeDTO>> filterByLabel(String clientData);
     Optional<List<IncomeDTO>> filterByMultipleLabels(List<LabelDTO> clientData);
+
+    /* ordering methods */
+    List<IncomeDTO> getFullHistory();
 }

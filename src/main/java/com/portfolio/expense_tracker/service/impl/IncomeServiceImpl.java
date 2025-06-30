@@ -3,7 +3,6 @@ package com.portfolio.expense_tracker.service.impl;
 import com.portfolio.expense_tracker.dto.*;
 import com.portfolio.expense_tracker.mapper.IncomeMapper;
 import com.portfolio.expense_tracker.mapper.LabelMapper;
-import com.portfolio.expense_tracker.model.Expense;
 import com.portfolio.expense_tracker.model.Income;
 import com.portfolio.expense_tracker.repository.IncomeRepository;
 import com.portfolio.expense_tracker.service.CurrencyService;
@@ -220,5 +219,11 @@ public class IncomeServiceImpl implements IncomeService {
                 .toList();
 
         return Optional.of(incomesFiltered);
+    }
+
+    @Override
+    public List<IncomeDTO> getFullHistory() {
+        List<Income> incomes = repo.findAllByOrderByLoadDate();
+        return mapper.toDtoList(incomes);
     }
 }

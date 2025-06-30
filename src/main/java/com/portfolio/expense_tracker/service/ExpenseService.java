@@ -22,4 +22,7 @@ public interface ExpenseService {
     /* filtering methods */
     Optional<List<ExpenseDTO>> filterByLabel(String clientData);
     Optional<List<ExpenseDTO>> filterByMultipleLabels(List<LabelDTO> clientData);
+
+    /* ordering methods */
+    List<ExpenseDTO> getFullHistory();
 }

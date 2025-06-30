@@ -16,4 +16,7 @@ public interface IncomeRepository extends JpaRepository<Income, Long> {
     @Modifying
     @Transactional
     void removeLabel(@Param("labelId") Long labelId, @Param("incomeId") Long incomeId);
+
+    /* to get all records with a method query I can use the word 'By' without any specified attribute */
+    List<Income> findAllByOrderByLoadDate();
 }
