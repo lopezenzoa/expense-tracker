@@ -7,8 +7,8 @@ This repository provides the backend API for the Expense Tracker application, en
 ### Prerequisites
 
 - Node.js (version >= 14)
-- npm or yarn
-- MongoDB (local or remote)
+- npm
+- MySQL (local)
 
 ### Installation
 
@@ -21,23 +21,11 @@ This repository provides the backend API for the Expense Tracker application, en
 2. **Install dependencies:**
    ```sh
    npm install
-   # or
-   yarn install
    ```
-
-3. **Configure environment variables:**
-   - Copy `.env.example` to `.env` and update with your configuration:
-     ```
-     MONGODB_URI=your_mongodb_connection_string
-     JWT_SECRET=your_jwt_secret
-     PORT=3000
-     ```
 
 4. **Start the server:**
    ```sh
    npm start
-   # or
-   yarn start
    ```
 
    The API will be available at `http://localhost:3000`.
